@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import re, ast, argparse, glob
 from lxml import etree
 
@@ -110,6 +112,9 @@ class AttrsParser:
         <field name="something" attrs={...}/> and <attribute name="attrs"/> to the new notation
         """
         if element.tag == "attribute":
+            if not element.text:
+                print(f"WARNING: {self.xml_path.split('/')[-1]}:{element.sourceline}: has no 'attrs' value, it must be adapted manually")
+                return
             for attribute, value in ast.literal_eval(element.text.strip()).items():
                 element.attrib["name"] = attribute
                 element.text = self.__convert_prefix_to_python_expression(value)

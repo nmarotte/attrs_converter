@@ -1,0 +1,7 @@
+<odoo>
+    <record id="empty_attrs">
+        <xpath expr="//field">
+            <attribute name="attrs">{'invisible': ['|', ('allow_billable', '=', False), ('partner_id', '=', False)]}</attribute>
+        </xpath>
+    </record>
+</odoo>

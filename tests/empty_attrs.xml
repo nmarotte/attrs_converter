@@ -1,0 +1,7 @@
+<odoo>
+    <record id="empty_attrs">
+        <xpath expr="//field">
+            <attribute name="attrs"/>
+        </xpath>
+    </record>
+</odoo>
