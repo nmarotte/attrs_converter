@@ -3,5 +3,29 @@
         <xpath expr="//field">
             <attribute name="attrs">{'invisible': ['|', ('allow_billable', '=', False), ('partner_id', '=', False)]}</attribute>
         </xpath>
+        <xpath expr="//field[2]" position="after">
+            <field
+                name="analytic_account_id"
+                attrs="{'readonly': ['|', ('is_locked', '=', True), '&amp;', ('reserved_availability', '&gt;', 0), ('location_usage', '!=', 'supplier')]}"
+                optional="show"
+            />
+        </xpath>
+        <xpath expr="//field[2]" position="after">
+            <field
+                name="analytic_account_id"
+                attrs="{'readonly': ['|', ('is_locked', '=', False), '&amp;', ('reserved_availability', '&lt;', 0), ('location_usage', '!=', 'supplier')]}"
+                optional="show"
+            />
+            <field
+                name="analytic_account_id"
+                attrs="{'readonly': ['|', ('is_locked', '=', True), '&amp;', ('reserved_availability', '&gt;=', 0), ('location_usage', '=', 'supplier')]}"
+                optional="show"
+            />
+            <field
+                name="analytic_account_id"
+                attrs="{'readonly': ['|', ('is_locked', '=', False), '&amp;', ('reserved_availability', '&lt;=', 0), ('location_usage', '=', 'supplier')]}"
+                optional="show"
+            />
+        </xpath>
     </record>
 </odoo>

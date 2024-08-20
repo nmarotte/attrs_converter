@@ -21,7 +21,11 @@ class AttrsParser:
         '=': equals_operator,
         '!=': not_equals_operator,
         'in': lambda field, value: f"{field} in {value}",
-        'not in': lambda field, value: f"{field} not in {value}"
+        'not in': lambda field, value: f"{field} not in {value}",
+        ">": lambda field, value: f"{field} > {repr(value)}",
+        "<": lambda field, value: f"{field} < {repr(value)}",
+        ">=": lambda field, value: f"{field} >= {repr(value)}",
+        "<=": lambda field, value: f"{field} <= {repr(value)}",
     }
 
 
