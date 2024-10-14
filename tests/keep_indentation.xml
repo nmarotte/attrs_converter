@@ -1,0 +1,18 @@
+<odoo>
+    <record id="indentation_1">
+    <xpath expr="//field">
+    <field
+        name="partner_id"
+        attrs="{'invisible': [('name', '!=', False), ('project_id', '=', False)]}"
+        optional="show"
+    />
+    </xpath>
+    </record>
+    <record id="indentation_2">
+        <xpath expr="//field" position="attrs">
+                                <attribute name="attrs">
+                                {'readonly': [('project_id', '=', False)]}
+                                </attribute>
+        </xpath>
+    </record>
+</odoo>

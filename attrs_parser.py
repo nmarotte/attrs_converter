@@ -3,6 +3,8 @@
 import re, ast, argparse, glob
 from lxml import etree
 
+TEST_MODE = None
+
 def equals_operator(field, value):
     if isinstance(value, bool):
         return field if value else f"not {field}"
@@ -40,6 +42,8 @@ class AttrsParser:
         return xml_content
 
     def __write_xml(self, xml_content):
+        if TEST_MODE:
+            return
         with open(self.xml_path, 'w') as f:
             f.write(xml_content)
 
@@ -156,8 +160,13 @@ class AttrsParser:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert infix expression to python expression')
     parser.add_argument('xml_paths', type=str, nargs='+', help='The path(s) of the XML file(s) to parse')
+    parser.add_argument('--test', type=bool, nargs='?', help='Run the script without replacing the files')
 
     args = parser.parse_args()
+
+    TEST_MODE = args.test
+    if TEST_MODE:
+        print("WARNING: Test mode enabled, the execution won't affect any file")
 
     for xml_path_pattern in args.xml_paths:
         for xml_path in glob.glob(xml_path_pattern):
