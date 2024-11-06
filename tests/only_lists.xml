@@ -1,0 +1,14 @@
+<odoo>
+    <record id="redacted" model="ir.ui.view">
+        <field name="name">redacted</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='require_signature']" position="attributes">
+                <attribute
+                    name="attrs">{"readonly": [["state","not in",["draft","sent"]]]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
