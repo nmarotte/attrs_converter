@@ -123,9 +123,14 @@ class AttrsParser:
             if not element.text:
                 print(f"WARNING: {self.xml_path.split('/')[-1]}:{element.sourceline}: has no 'attrs' value, it must be adapted manually")
                 return
-            for attribute, value in ast.literal_eval(element.text.strip()).items():
-                element.attrib["name"] = attribute
-                element.text = self.__convert_prefix_to_python_expression(value)
+            items = list(ast.literal_eval(element.text.strip()).items())
+            attribute, value = items.pop()
+            element.attrib["name"] = attribute
+            element.text = self.__convert_prefix_to_python_expression(value)
+
+            for attribute, value in items:
+                new_attribute_node = etree.SubElement(element.getparent(), "attribute", name=attribute)
+                new_attribute_node.text = self.__convert_prefix_to_python_expression(value)
         else:
             for attribute, value in ast.literal_eval(element.get("attrs").strip()).items():
                 element.set(attribute, self.__convert_prefix_to_python_expression(value))
