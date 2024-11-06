@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import re, ast, argparse, glob
+import re, ast, argparse, glob, collections
 from lxml import etree
 
 TEST_MODE = None
@@ -100,8 +100,8 @@ class AttrsParser:
         if prefix in [0, 1]:
             return str(bool(prefix))
         for token in reversed(prefix):
-            if isinstance(token, tuple):
-                stack.append(AttrsParser.OPERATORS[token[1]](token[0], token[2]))
+            if isinstance(token, collections.abc.Sequence) and len(token) == 3 and token[1] in AttrsParser.OPERATORS:
+                stack.append(AttrsParser.OPERATORS.get(token[1])(token[0], token[2]))
             elif token in ['&', '|']:
                 left = stack.pop()
                 op = 'and' if token == '&' else 'or'
