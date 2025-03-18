@@ -1,0 +1,31 @@
+<odoo>
+    <record id="hr_department_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group>
+                    <group>
+                        <field name="department_average_cost"/>
+                        <field name="department_capacity"/>
+                    </group>
+                        <field name="department_role_cost_ids">
+                            <tree>
+                                <field name="a_field" readonly="1"/>
+                                <field name="b_field"/>
+                                <field name="c_field"/>
+                            </tree>
+                        </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_cost" model="ir.actions.act_window">
+        <field name="name">Employee cost</field>
+        <field name="res_model">hr.employee.cost</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>
