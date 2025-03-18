@@ -165,7 +165,7 @@ class AttrsParser:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert infix expression to python expression')
     parser.add_argument('xml_paths', type=str, nargs='+', help='The path(s) of the XML file(s) to parse')
-    parser.add_argument('--test', type=bool, nargs='?', help='Run the script without replacing the files')
+    parser.add_argument('--test', action=argparse.BooleanOptionalAction, help='Run the script without replacing the files')
 
     args = parser.parse_args()
 

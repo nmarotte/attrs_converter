@@ -11,10 +11,10 @@ This Python script is designed to convert infix expressions in XML files to Pyth
 * Navigate to the directory containing the script.
 * Run the script using the following command:
 ```
-python attrs_parser.py <xml_path1> <xml_path2> ...
+python attrs_parser.py <xml_path1> <xml_path2> ... [--test]
 ```
 Replace <xml_path1> <xml_path2> ... with the paths (or wildcard) to the XML files you want to parse.
-
+`--test` argument prevents the tool from modifying the files and will just display the logs
 e.g. : 
 ```
 python attrs_parser.py custom_modules/views/view1.xml custom_modules/views/view2.xml
