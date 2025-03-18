@@ -156,10 +156,33 @@ class AttrsParser:
         xml_content = etree.tostring(root, encoding='utf-8', pretty_print=True, xml_declaration=self.has_xml_declaration).decode('utf-8')
         self.__write_xml(xml_content)
 
+    def convert_tree_list(self):
+        """Converts `tree` references into `list` in 
+        - <tree> elements
+        - <field name="view_mode">...tree...</field>
+        """
+        root = etree.parse(self.xml_path).getroot()
+        tree_nodes = root.xpath("//tree")
+        # <tree>
+        if tree_nodes:
+            for element in tree_nodes:
+                element.tag = "list"
+            print(f"Adapted {len(tree_nodes)} <tree> in {self.xml_path}")
+
+        # <field name="view_mode">...tree...</field>
+        field_nodes = root.xpath("//field[@name='view_mode' and contains(text(), 'tree')]")
+        if field_nodes:
+            for element in field_nodes:
+                element.text = element.text.replace("tree", "list")
+            print(f"Adapted {len(field_nodes)} <field name='view_mode'>in {self.xml_path}")
+        xml_content = etree.tostring(root, encoding='utf-8', pretty_print=True, xml_declaration=self.has_xml_declaration).decode('utf-8')
+        self.__write_xml(xml_content)
+
     def process_xml(self):
         self.preprocess()
         self.convert_attrs()
         self.convert_column_invisible()
+        # self.convert_tree_list()  # causes issue with formatting
         self.postprocess()
 
 if __name__ == "__main__":
